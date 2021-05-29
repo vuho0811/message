@@ -66,9 +66,8 @@ const LoginContainer = styled.div`
 
 display:flex;
 flex-direction: column;
-margin-top:100px;
 align-items: center;
-
+margin-top: 10px;
 
 
 border-radius:5px;
