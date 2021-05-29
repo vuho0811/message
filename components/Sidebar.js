@@ -100,8 +100,12 @@ background-color:rgb(47	37	64	);
 height:100vh;
 overflow:scroll;
 flex:0.35;
-scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  
+::-webkit-scrollbar {
+    display: none;
+}
+-ms-overflow-style: none;
+
+ 
 `;
 const LeftContainer = styled.div`
 display:flex;
@@ -114,6 +118,7 @@ background-color: rgb(47	37	64	);
 height:50px;
 padding-left:10px;
 padding-right:20px;
+
 
 
 `;
@@ -133,7 +138,6 @@ const Header = styled.div`
 display:flex;
 flex:1;
 justify-content: space-between;
-position:sticky;
 top:0;
 
 background-color: rgb(47	37	64	);

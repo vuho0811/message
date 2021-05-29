@@ -263,6 +263,7 @@ padding-left:40px;
 
 
 
+
 `; 
 
 const LastActive = styled.p`
@@ -322,4 +323,8 @@ const MessageContainer =styled.div`
 
 height:80vh;
 overflow:scroll;
+::-webkit-scrollbar {
+    display: none;
+}
+-ms-overflow-style: none;
 `
