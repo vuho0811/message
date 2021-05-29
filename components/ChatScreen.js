@@ -59,17 +59,20 @@ export default function ChatScreen({id,recipient,messages}) {
     
     const ShowMessages = () =>{
 
+
         if(chatsSnapShot){
+        scrollToBottom()
+
         return chatsSnapShot?.docs?.map((doc)=>(
             <Message time={doc.data().createdAt} image={doc.data().postImage}  sender={doc.data().sender} key={doc.id} id={doc.id} message={doc.data().message}/>
         ))
         }
         else{
+
             return Object.values(messages)?.map((doc)=>(
                 <Message time={doc.data.createdAt} sender={doc.data.sender} key={doc.id} message={doc.data.message} id={doc.id}/>
             ))
         }
-        scrollToBottom()
 
         
 
