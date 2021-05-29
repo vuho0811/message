@@ -100,6 +100,8 @@ background-color:rgb(47	37	64	);
 height:100vh;
 overflow:scroll;
 flex:0.35;
+scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  
 `;
 const LeftContainer = styled.div`
 display:flex;
