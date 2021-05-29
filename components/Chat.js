@@ -42,7 +42,7 @@ export default function Chat({id,users}) {
 
 
         <MessageContainer>
-        <p>{recipientEmail}</p>
+        <RecipientEmail>{recipientEmail}</RecipientEmail>
         <LastMessage style={{ color: "grey" }}>{chatsSnapShot?.docs[chatsSnapShot.docs.length-1]?.data()?.message}</LastMessage>
         </MessageContainer>
 
@@ -65,6 +65,9 @@ border-bottom:1px solid rgb(56	45	76	);
     opacity:0.8;
 }
 `;
+const RecipientEmail = styled.p`
+word-wrap:break-word;
+`
 
 const UserAvatar = styled(Avatar)`
 margin:10px;

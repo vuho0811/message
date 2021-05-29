@@ -7,4 +7,3 @@ export default function getRecipientEmail(currentUser,users){
     })
     return result
 }
-
