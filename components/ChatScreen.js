@@ -58,7 +58,6 @@ export default function ChatScreen({id,recipient,messages}) {
 
     
     const ShowMessages = () =>{
-        scrollToBottom()
 
         if(chatsSnapShot){
         return chatsSnapShot?.docs?.map((doc)=>(
@@ -70,6 +69,8 @@ export default function ChatScreen({id,recipient,messages}) {
                 <Message time={doc.data.createdAt} sender={doc.data.sender} key={doc.id} message={doc.data.message} id={doc.id}/>
             ))
         }
+        scrollToBottom()
+
         
 
     }
