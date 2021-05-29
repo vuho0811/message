@@ -58,6 +58,8 @@ export default function ChatScreen({id,recipient,messages}) {
 
     
     const ShowMessages = () =>{
+        scrollToBottom()
+
         if(chatsSnapShot){
         return chatsSnapShot?.docs?.map((doc)=>(
             <Message time={doc.data().createdAt} image={doc.data().postImage}  sender={doc.data().sender} key={doc.id} id={doc.id} message={doc.data().message}/>
@@ -107,7 +109,11 @@ export default function ChatScreen({id,recipient,messages}) {
         scrollToBottom()
         setInput('')
     }
+
+
         else{
+
+        if(imageToMessage){
             let result =  db.collection('chats').doc(id)
     
         result.collection('messages').add({
@@ -135,6 +141,7 @@ export default function ChatScreen({id,recipient,messages}) {
             // result.collection('messages').doc(doc.id).set({
             //     ngu: '1'
             // },{merge:true})
+        
         })
 
         let myUser = db.collection('users').doc(user.uid)
@@ -145,6 +152,7 @@ export default function ChatScreen({id,recipient,messages}) {
 
         scrollToBottom()
         setInput('')
+    }
         }
 
         // else{
@@ -189,7 +197,7 @@ export default function ChatScreen({id,recipient,messages}) {
     
         // }
 
-        
+
      }
   return (
     <Container>
@@ -250,7 +258,7 @@ export default function ChatScreen({id,recipient,messages}) {
   );
 }
 const LastMessage =styled.div`
-margin-bottom:100px;
+margin-bottom:120px;
 
 `;
 const InputImg = styled.img`
