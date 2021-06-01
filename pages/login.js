@@ -20,7 +20,7 @@ export default function Login() {
       var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      console.log(user);
+      // console.log(user);
       // ...
     }).catch((error) => {
       // Handle Errors here.
