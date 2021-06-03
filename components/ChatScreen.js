@@ -28,7 +28,8 @@ export default function ChatScreen({ id, recipient, messages }) {
   const [imageToMessage, setImageToMessage] = useState(null);
   const [userSnapshot] = useCollection(db.collection('users').where('email','==',user.email))
   let myTime = firebase.firestore.Timestamp.fromDate(new Date());
-    
+    // console.log(Object.keys(messages).length
+// );
     // console.log(myTime);
 //   setInterval(function(){ currentTime }, 1000);
 //   console.log(currentTime);
@@ -42,6 +43,8 @@ export default function ChatScreen({ id, recipient, messages }) {
       behavior: "smooth",
       block: "start",
     });
+    // lastMessage.current.scrollTop = lastMessage.current.scrollHeight;
+
   };
   //  console.log(user);
   const [recipientSnapshot] = useCollection(
@@ -59,7 +62,14 @@ export default function ChatScreen({ id, recipient, messages }) {
       .collection("messages")
       .orderBy("createdAt", "asc")
   );
-  // console.log(chatsSnapShot?.docs[0].data());
+  //   if(lastMessage.current !== null){
+  // lastMessage.current.value = chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1].data().message
+  //   // console.log(lastMessage.current.value);
+  //   setTimeout(function(){ scrollToBottom() }, 10000);
+
+  //   }
+    
+// console.log(lastMessage.current.value);
   const addImageToMessages = (e) => {
     const reader = new FileReader();
     console.log(e.target.files[0]);
@@ -71,11 +81,16 @@ export default function ChatScreen({ id, recipient, messages }) {
       // console.log(readerEvent.target.result);
     };
   };
-
+  
+    
   const ShowMessages = () => {
-    if (chatsSnapShot) {
-      scrollToBottom();
+   
 
+    if (chatsSnapShot) {
+      db.collection('chats').doc(id).set({
+        timestamp:       chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1].data().createdAt
+    
+      },{merge:true})
       return chatsSnapShot?.docs?.map((doc) => (
         <Message
           time={doc.data().createdAt}
@@ -87,6 +102,11 @@ export default function ChatScreen({ id, recipient, messages }) {
         />
       ));
     } else {
+      // db.collection('chats').doc(id).set({
+      //   timestamp: Object.keys(messages)[Object.keys(messages).length-1]?.data?.createdAt
+
+    
+      // },{merge:true})
       return Object.values(messages)?.map((doc) => (
         <Message
           time={doc.data.createdAt}

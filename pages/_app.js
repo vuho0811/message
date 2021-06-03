@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps }) {
     const [user,loading] = useAuthState(auth)
     if(user){
 
-      localStorage.setItem('userActive', user.uid)
 
       setInterval(function(){
 
@@ -22,7 +21,6 @@ function MyApp({ Component, pageProps }) {
           photoURL: user.photoURL,
           name: user.displayName,
           lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-          isActive:true
         },{merge:true});  
       },1000)
 
@@ -36,14 +34,7 @@ function MyApp({ Component, pageProps }) {
       return <Loading/>
     }
     if(!user){
-      let myUser = localStorage.getItem('userActive')
-      if(myUser != null){
-        db.collection('users').doc(myUser).set({
-          isActive:false
-        },{merge:true})
-      console.log(myUser)
-
-      }
+      
       return <Login/>
     }
 

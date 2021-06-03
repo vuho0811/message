@@ -12,12 +12,40 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import Login from '../pages/login'
 import firestore from 'firebase/firestore'
 import ChatScreen from './ChatScreen';
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+
 
 // import { Container } from './styles';
 
 
 export default function Sidebar() {
+
     const [user] = useAuthState(auth)
+    TimeAgo.addLocale(en)
+    const timeAgo = new TimeAgo('en-US')
+    const currentUser = db.collection('users').where('email','==',user.email)
+    const [currentUserSnapshot] = useCollection(currentUser)
+    // currentUserSnapshot?.docs?.map((currentUser)=>{
+    //     if(currentUser?.data()?.lastSeen != null){
+    //     let myTime = timeAgo.format(new Date(currentUser?.data()?.lastActive?.toDate().getTime()))
+    //     // console.log(myTime); 
+    //     if(myTime == 'just now'){
+    //       db.collection('users').doc(user.uid).set({
+    //         isActive: true     },{merge:true})
+      
+      
+    //     }
+    //     else{
+    //       db.collection('users').doc(user.uid).set({
+    //         isActive: false
+    //       },{merge:true})
+    //     }
+    //     }
+      
+    //     // console.log(user.data()?.lastSeen)
+    //   })
+
 
     let userChat = []
     if(user){
@@ -51,10 +79,10 @@ export default function Sidebar() {
         const ChatAlreadyExists2 = await db.collection('chats').where('users','==',[input,user.email]).get()
        
         if(EmailValidator.validate(input) && input!= user.email && chatAlreadyExists.size == 0 && ChatAlreadyExists2.size == 0){
-            db.collection('chats').add({
+            db.collection('chats').set({
                 users:[user.email,input],
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            })
+            },{merge:true})
         }
         else{
             alert("Please Type A Valid Email")

@@ -22,9 +22,15 @@ export default function Chat({id,users}) {
     }
     const [chatsSnapShot] = useCollection(db.collection('chats').doc(id).collection('messages').orderBy('createdAt','asc'));
     // console.log(chatsSnapShot?.docs[0].data().message);
-    // console.log(chatsSnapShot?.docs?.length);
-    // console.log(messagesSnapshot.docs[messagesSnapshot.docs.length-1].data());   
     
+    // console.log(chatsSnapShot?.docs?.length);
+    // console.log(messagesSnapshot.docs[messagesSnapshot.docs.length-1].data()); 
+    // if(chatsSnapShot){  
+    // db.collection('chats').doc(id).set({
+    //     timestamp:       chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1]?.data()?.createdAt
+    
+    //   },{merge:true})
+    // }
 
     // console.log(chatsSnapShot?.docs[chatsSnapShot?.docs?.length -1 ]?.data());
     let recipientEmail = getRecipientEmail(user,users)
