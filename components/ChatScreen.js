@@ -87,10 +87,10 @@ export default function ChatScreen({ id, recipient, messages }) {
    
 
     if (chatsSnapShot) {
-      db.collection('chats').doc(id).set({
-        timestamp:       chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1].data().createdAt
+      // db.collection('chats').doc(id).set({
+      //   timestamp:       chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1].data().createdAt
     
-      },{merge:true})
+      // },{merge:true})
       return chatsSnapShot?.docs?.map((doc) => (
         <Message
           time={doc.data().createdAt}
@@ -125,6 +125,10 @@ export default function ChatScreen({ id, recipient, messages }) {
   const sendMessages = (e) => {
     e.preventDefault();
     //  console.log(input);
+    db.collection('chats').doc(id).set({
+      timestamp:       chatsSnapShot?.docs[chatsSnapShot?.docs?.length-1].data().createdAt
+  
+    },{merge:true})
     if (input !== "") {
       let result = db.collection("chats").doc(id);
 
