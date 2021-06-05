@@ -139,7 +139,7 @@ recipient?.docs?.map((recipient)=>{
     let recipientTime = timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime()))
     // console.log(myTime)
     if(recipientTime == 'just now'){
-        console.log(recipient?.data()?.email);
+        // console.log(recipient?.data()?.email);
   
     }
     else{
