@@ -22,24 +22,26 @@ import en from 'javascript-time-ago/locale/en'
 export default function Sidebar() {
 
     const [user] = useAuthState(auth)
+    // console.log(user.email);
     TimeAgo.addLocale(en)
     const timeAgo = new TimeAgo('en-US')
     const currentUser = db.collection('users').where('email','==',user.email)
     const [currentUserSnapshot] = useCollection(currentUser)
-    currentUserSnapshot?.docs?.map((currentUser)=>{
-        if(currentUser?.data()?.lastSeen != null){
-        let myTime = timeAgo.format(new Date(currentUser?.data()?.lastActive?.toDate().getTime()))
-        if(myTime == 'just now'){
-          console.log('just now')
+    // alert('ngu')
+    // currentUserSnapshot?.docs?.map((currentUser)=>{
+    //     // console.log(currentUser?.data()?.lastSeen)
+    //     if(currentUser?.data()?.lastActive != null){
+    //     let myTime = timeAgo.format(new Date(currentUser?.data()?.lastSeen?.toDate().getTime()))
+    //     // console.log(myTime)
+    //     if(myTime == 'just now'){
       
       
-        }
-        else{
-          console.log('no active')
-        }
-        }
+    //     }
+    //     else{
+    //     }
+    //     }
       
-      })
+    //   })
 
 
     let userChat = []

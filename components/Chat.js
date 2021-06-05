@@ -7,15 +7,59 @@ import { auth, db } from '../firebase';
 import getRecipientEmail from '../getRecipientEmail';
 import { useRouter } from 'next/router'
 import moment from 'moment'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import Badge from '@material-ui/core/Badge';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 
 // import { Container } from './styles';
-
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+      backgroundColor: '#44b700',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+        animation: '$ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }))(Badge);
+  
+  
+  
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  }));
 export default function Chat({id,users}) {
     //tim receiver
     const [user] = useAuthState(auth)
     const router = useRouter()
     // console.log(router.query.id);
+    TimeAgo.addLocale(en)
+    const timeAgo = new TimeAgo('en-US')
 
     const joinChat = () =>{
             router.push('/chatFolder/'+id)
@@ -36,15 +80,102 @@ export default function Chat({id,users}) {
     let recipientEmail = getRecipientEmail(user,users)
 
     const [recipient] = useCollection(db.collection('users').where('email','==',recipientEmail[0]))
+    const currentUser = db.collection('users').where('email','==',user.email)
+    const [currentUserSnapshot] = useCollection(currentUser)
+    // currentUserSnapshot?.docs?.map((currentUser)=>{
+    //     // console.log(currentUser?.data()?.lastSeen)
+    //     if(currentUser?.data()?.lastActive != null){
+    //     let myTime = timeAgo.format(new Date(currentUser?.data()?.lastSeen?.toDate().getTime()))
+    //     // console.log(myTime)
+    //     if(myTime == 'just now'){
+      
+      
+    //     }
+    //     else{
+    //     }
+    //     }
+      
+    //   })
+
+    //   {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
+
+            
+    //     <UserAvatar key={doc.id} src={doc?.data().photoURL}/>
+
+    //     ) ): (
+    //         <UserAvatar >{recipientEmail[0][0]}</UserAvatar>
+    //     )}
+
+    
     // console.log(users)
+
+    
+//     <div className={classes.root}>
+//       <StyledBadge
+//         overlap="circle"
+//         anchorOrigin={{
+//           vertical: 'top',
+//           horizontal: 'right',
+//         }}
+//         variant="dot"
+//       >
+//           {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
+
+            
+// <UserAvatar key={doc.id} src={doc?.data().photoURL}/>
+
+// ) ): (
+//     <UserAvatar >{recipientEmail[0][0]}</UserAvatar>
+// )}
+
+
+//       </StyledBadge>
+      
+//     </div>
+const classes = useStyles();
+recipient?.docs?.map((recipient)=>{
+    // console.log(currentUser?.data()?.lastSeen)
+    if(recipient?.data()?.lastActive != null){
+    let recipientTime = timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime()))
+    // console.log(myTime)
+    if(recipientTime == 'just now'){
+        console.log(recipient?.data()?.email);
+  
+    }
+    else{
+        // console.log('thang nay k hdong')
+       
+    }
+    // console.log('ok');
+    }
+  
+  })
   return (
     <Container onClick={joinChat}>
-        {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
-        <UserAvatar key={doc.id} src={doc?.data().photoURL}/>
+    
+        <div className={classes.root}>
+      <StyledBadge
+        overlap="circle"
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        variant="dot"
+      >
+          {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
 
-        ) ): (
-            <UserAvatar >{recipientEmail[0][0]}</UserAvatar>
-        )}
+            
+<UserAvatar key={doc.id} src={doc?.data().photoURL}/>
+
+) ): (
+    <UserAvatar >{recipientEmail[0][0]}</UserAvatar>
+)
+}
+</StyledBadge>
+      
+    </div>
+
+
 
 
         <MessageContainer>
