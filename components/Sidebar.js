@@ -26,25 +26,20 @@ export default function Sidebar() {
     const timeAgo = new TimeAgo('en-US')
     const currentUser = db.collection('users').where('email','==',user.email)
     const [currentUserSnapshot] = useCollection(currentUser)
-    // currentUserSnapshot?.docs?.map((currentUser)=>{
-    //     if(currentUser?.data()?.lastSeen != null){
-    //     let myTime = timeAgo.format(new Date(currentUser?.data()?.lastActive?.toDate().getTime()))
-    //     // console.log(myTime); 
-    //     if(myTime == 'just now'){
-    //       db.collection('users').doc(user.uid).set({
-    //         isActive: true     },{merge:true})
+    currentUserSnapshot?.docs?.map((currentUser)=>{
+        if(currentUser?.data()?.lastSeen != null){
+        let myTime = timeAgo.format(new Date(currentUser?.data()?.lastActive?.toDate().getTime()))
+        if(myTime == 'just now'){
+          console.log('just now')
       
       
-    //     }
-    //     else{
-    //       db.collection('users').doc(user.uid).set({
-    //         isActive: false
-    //       },{merge:true})
-    //     }
-    //     }
+        }
+        else{
+          console.log('no active')
+        }
+        }
       
-    //     // console.log(user.data()?.lastSeen)
-    //   })
+      })
 
 
     let userChat = []
