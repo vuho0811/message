@@ -137,23 +137,28 @@ recipient?.docs?.map((recipient)=>{
     // console.log(currentUser?.data()?.lastSeen)
     if(recipient?.data()?.lastActive != null){
     let recipientTime = timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime()))
-    // console.log(myTime)
     if(recipientTime == 'just now'){
-        // console.log(recipient?.data()?.email);
   
     }
-    else{
-        // console.log('thang nay k hdong')
-       
+    
     }
-    // console.log('ok');
+    else{
+
     }
   
   })
   return (
     <Container onClick={joinChat}>
-    
-        <div className={classes.root}>
+    {recipient?.docs?.map((recipient)=>{
+        {recipient?.data()?.lastActive != null ? (
+            (timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime())) == 'just now' ?? (
+                a
+            ))
+        ):(
+            a
+        )}
+    })}
+        {/* <div className={classes.root}>
       <StyledBadge
         overlap="circle"
         anchorOrigin={{
@@ -173,7 +178,7 @@ recipient?.docs?.map((recipient)=>{
 }
 </StyledBadge>
       
-    </div>
+    </div> */}
 
 
 
