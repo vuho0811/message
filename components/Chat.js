@@ -186,7 +186,7 @@ recipient?.docs?.map((recipient)=>{
   
   })
     function showReceiver(){
-      if(myRecipient?.data()?.isActive == true){
+      if(myRecipient?.data()?.isActive == "true"){
         return (
           <div className={classes.root}>
           <StyledBadge
