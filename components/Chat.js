@@ -42,6 +42,36 @@ const StyledBadge = withStyles((theme) => ({
       },
     },
   }))(Badge);
+
+
+  const StyledBadgeOffline = withStyles((theme) => ({
+    badge: {
+      backgroundColor: 'grey',
+      color: '#44b700',
+      boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+      '&::after': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        borderRadius: '50%',
+        animation: '$ripple 1.2s infinite ease-in-out',
+        border: '1px solid currentColor',
+        content: '""',
+      },
+    },
+    '@keyframes ripple': {
+      '0%': {
+        transform: 'scale(.8)',
+        opacity: 1,
+      },
+      '100%': {
+        transform: 'scale(2.4)',
+        opacity: 0,
+      },
+    },
+  }))(Badge);
   
   
   
@@ -82,6 +112,7 @@ export default function Chat({id,users}) {
     const [recipient] = useCollection(db.collection('users').where('email','==',recipientEmail[0]))
     const currentUser = db.collection('users').where('email','==',user.email)
     const [currentUserSnapshot] = useCollection(currentUser)
+    let myRecipient = recipient?.docs[0]
     // currentUserSnapshot?.docs?.map((currentUser)=>{
     //     // console.log(currentUser?.data()?.lastSeen)
     //     if(currentUser?.data()?.lastActive != null){
@@ -138,7 +169,14 @@ recipient?.docs?.map((recipient)=>{
     if(recipient?.data()?.lastActive != null){
     let recipientTime = timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime()))
     if(recipientTime == 'just now'){
-  
+          db.collection('users').doc(recipient.id).set({
+                isActive:true
+          },{merge:true})
+    }
+    else {
+      db.collection('users').doc(recipient.id).set({
+        isActive:false
+  },{merge:true})
     }
     
     }
@@ -147,9 +185,46 @@ recipient?.docs?.map((recipient)=>{
     }
   
   })
+    function showReceiver(){
+      if(myRecipient?.data()?.isActive == true){
+        return (
+          <div className={classes.root}>
+          <StyledBadge
+            overlap="circle"
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            variant="dot"
+          >
+          </StyledBadge>
+          
+        </div>
+
+        )
+      }
+      else{
+        return (
+          <div className={classes.root}>
+          <StyledBadgeOffline
+            overlap="circle"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            variant="dot"
+          >
+          </StyledBadgeOffline>
+          
+        </div>
+        )
+      }
+    }
+  
+   
   return (
     <Container onClick={joinChat}>
-    {recipient?.docs?.map((recipient)=>{
+    {/* {recipient?.docs?.map((recipient)=>{
         {recipient?.data()?.lastActive != null ? (
             (timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime())) == 'just now' ?? (
                 a
@@ -157,29 +232,18 @@ recipient?.docs?.map((recipient)=>{
         ):(
             a
         )}
-    })}
-        {/* <div className={classes.root}>
-      <StyledBadge
-        overlap="circle"
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        variant="dot"
-      >
-          {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
+    })} */}
+    <UserContainer>
+        {showReceiver()}
+        {recipient?.size===1 ? recipient?.docs?.map((doc) =>(
 
             
 <UserAvatar key={doc.id} src={doc?.data().photoURL}/>
 
 ) ): (
     <UserAvatar >{recipientEmail[0][0]}</UserAvatar>
-)
-}
-</StyledBadge>
-      
-    </div> */}
-
+)}
+</UserContainer>
 
 
 
@@ -194,6 +258,11 @@ recipient?.docs?.map((recipient)=>{
     </Container>
   );
 }
+const UserContainer = styled.div`
+display:flex;
+justify-content: space-between;
+justify-items: center;
+`
 
 const Container = styled.div`
 display:flex;
