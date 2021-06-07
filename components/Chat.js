@@ -47,7 +47,7 @@ const StyledBadge = withStyles((theme) => ({
   const StyledBadgeOffline = withStyles((theme) => ({
     badge: {
       backgroundColor: 'grey',
-      color: '#44b700',
+      color: 'grey',
       boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
       '&::after': {
         position: 'absolute',
