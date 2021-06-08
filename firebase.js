@@ -2,14 +2,14 @@ import firebase from 'firebase'
 import 'firebase/storage';  // <----
 
 const firebaseConfig = {
-    apiKey: "AIzaSyByFp24EkX4t3NBAoX-zbhgJ4hGE5Q_FKs",
-    authDomain: "messenger-cd1d4.firebaseapp.com",
-    projectId: "messenger-cd1d4",
-    storageBucket: "messenger-cd1d4.appspot.com",
-    messagingSenderId: "840287891445",
-    appId: "1:840287891445:web:0fd6621b682d5e971fbabc",
-    measurementId: "G-F69GR6KE6P"
-  };
+  apiKey: "AIzaSyDTFbxnz_2oIF-YaOSlctTb-7qFn1xQhBA",
+  authDomain: "messenger-cbf76.firebaseapp.com",
+  projectId: "messenger-cbf76",
+  storageBucket: "messenger-cbf76.appspot.com",
+  messagingSenderId: "354993891299",
+  appId: "1:354993891299:web:bd8dd6bbc1859dc02ce2d6",
+  measurementId: "G-61B3H40F2T"
+};
 
 
 //   const app = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
