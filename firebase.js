@@ -2,13 +2,13 @@ import firebase from 'firebase'
 import 'firebase/storage';  // <----
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDTFbxnz_2oIF-YaOSlctTb-7qFn1xQhBA",
-  authDomain: "messenger-cbf76.firebaseapp.com",
-  projectId: "messenger-cbf76",
-  storageBucket: "messenger-cbf76.appspot.com",
-  messagingSenderId: "354993891299",
-  appId: "1:354993891299:web:bd8dd6bbc1859dc02ce2d6",
-  measurementId: "G-61B3H40F2T"
+  apiKey: "AIzaSyAoAX8bjTtS27YlHEh-miFpgL51UjKJLew",
+  authDomain: "myapp-7b5f9.firebaseapp.com",
+  projectId: "myapp-7b5f9",
+  storageBucket: "myapp-7b5f9.appspot.com",
+  messagingSenderId: "529318295078",
+  appId: "1:529318295078:web:7929e9b3593e926c7fd8e7",
+  measurementId: "G-8QCMZ1TJX6"
 };
 
 
