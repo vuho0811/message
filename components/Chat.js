@@ -185,7 +185,7 @@ recipient?.docs?.map((recipientName)=>{
           <StyledBadge
             overlap="circle"
             anchorOrigin={{
-              vertical: 'bottom',
+              vertical: 'top',
               horizontal: 'left',
             }}
             variant="dot"
