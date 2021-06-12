@@ -164,25 +164,18 @@ export default function Chat({id,users}) {
       
 //     </div>
 const classes = useStyles();
-recipient?.docs?.map((recipient)=>{
+recipient?.docs?.map((recipientName)=>{
     // console.log(currentUser?.data()?.lastSeen)
-    if(recipient?.data()?.lastActive != null){
-    let recipientTime = timeAgo.format(new Date(recipient?.data()?.lastActive?.toDate().getTime()))
-    if(recipientTime == 'just now'){
-          db.collection('users').doc(recipient.id).set({
-                isActive:true
+    if(recipientName?.data()?.lastActive != null){
+    let recipientTime = timeAgo.format(new Date(recipientName?.data()?.lastActive?.toDate().getTime()))
+    
+          db.collection('users').doc(recipientName.id).set({
+                isActive:recipientTime
           },{merge:true})
-    }
-    else {
-      db.collection('users').doc(recipient.id).set({
-        isActive:false
-  },{merge:true})
-    }
+  
     
     }
-    else{
-
-    }
+        
   
   })
     function showReceiver(){
