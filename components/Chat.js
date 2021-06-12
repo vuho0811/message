@@ -179,7 +179,7 @@ recipient?.docs?.map((recipientName)=>{
   
   })
     function showReceiver(){
-      if(myRecipient?.data()?.isActive == "true"){
+      if(myRecipient?.data()?.isActive == "just now" || myRecipient?.data()?.isActive == 'in a moment'){
         return (
           <div className={classes.root}>
           <StyledBadge
