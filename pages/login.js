@@ -1,7 +1,7 @@
 import  styled  from 'styled-components';
 import React from 'react';
 import { Button } from '@material-ui/core';
-import mainLogo from './logo.png'
+import mainLogo from './logo.jpeg'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {auth,db,provider} from '../firebase'
 import Head from 'next/head'
